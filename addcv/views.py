@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from .forms import personalform, educationform, experienceform, whole
-from .models import experience, education, person
+from .models import experience, education, person, FilesUpload
+from django.views.generic import TemplateView
+from django.core.files.storage import FileSystemStorage
+
 from django.template.loader import render_to_string
 from weasyprint import HTML
 import tempfile
@@ -76,12 +79,21 @@ def experiences(request):
 
 def cv(request):
     context = {
-        'persons': person.objects.all(),
-        'experiences': experience.objects.all(),
-        'educations' : education.objects.all()
+        'persons': persons.objects.all(),
+        'experiences': experiences.objects.all(),
+        'educations' : educations.objects.all()
     }
     return render(request, 'resumes/2/index.html', context)
 
+def upload(request):
+    
+    if request.method == 'POST':
+        uploaded_file = request.FILES['file']
+        document = FilesUpload.objects.create(file=uploaded_file)
+        document.save()
+        return HttpResponse("your file was saved")
+        
+    return render(request, 'seavs/upload.html')
 
 
 # Create your views here.

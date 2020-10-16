@@ -12,4 +12,15 @@
   </a></button><br>
   </div>
 </section>
+
+  <h2>Upload your CV</h2>
+  <form method ="post" enctype="multipart/form-data">
+     {% csrf_token %}
+     <input type="file" name ="document">
+     <button type="submit">Upload file</button>
+  </form>
+  {% if url %}
+      <p>uploaded file: <a href="{{url}}">{{url}}</a></p>   
+
+  {% endif %}
 {% endblock content %}
