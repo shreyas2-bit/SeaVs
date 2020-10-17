@@ -1,10 +1,14 @@
 from django.contrib import admin
-from .models import person,education,experience,whole,FilesUpload
+from .models import *
 
-@admin.register(person,education,experience,whole)
-class UserAdmin(admin.ModelAdmin):
-    #list_display=['firstname','lastname']
-    pass
+#registering the models
+admin.site.register(person)
+admin.site.register(education)
+admin.site.register(experience)
+admin.site.register(projects)
+admin.site.register(resume)
 
 
-admin.site.register(FilesUpload)
+#@admin.register(person,education,experience,projects,resume)
+#class UserAdmin(admin.ModelAdmin):
+#    pass
